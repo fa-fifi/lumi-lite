@@ -1,4 +1,4 @@
-# lumilite
+# Lumi Lite
 
 A new Flutter project.
 
