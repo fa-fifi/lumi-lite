@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lumilite/models/category.dart';
 import 'package:lumilite/widgets/greeting.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -81,45 +83,55 @@ class _HomeScreenState extends State<HomeScreen>
                 pinned: true,
                 expandedHeight: 125,
                 flexibleSpace: FlexibleSpaceBar(
-                    titlePadding: EdgeInsets.zero,
-                    expandedTitleScale: 1,
-                    background: const Greeting(),
-                    title: TabBar(
-                      controller: _tabController,
-                      indicatorColor: Colors.transparent,
-                      labelPadding: const EdgeInsets.only(left: 10, bottom: 5),
-                      isScrollable: true,
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.black,
-                      tabs: [
-                        buildTab(index: 0, text: 'Latest ⚡'),
-                        buildTab(index: 1, text: 'Trending 🔥'),
-                        buildTab(index: 2, text: 'News ☕'),
-                      ],
-                    )),
+                  titlePadding: EdgeInsets.zero,
+                  expandedTitleScale: 1,
+                  background: const Greeting(),
+                  title: TabBar(
+                    controller: _tabController,
+                    indicatorColor: Colors.transparent,
+                    labelPadding: const EdgeInsets.only(left: 10, bottom: 5),
+                    isScrollable: true,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.black,
+                    tabs: [
+                      buildTab(index: 0, text: 'Latest ⚡'),
+                      buildTab(index: 1, text: 'Trending 🔥'),
+                      buildTab(index: 2, text: 'News ☕'),
+                    ],
+                  ),
+                ),
               ),
             ],
             body: TabBarView(
               controller: _tabController,
               children: [
-                ListView.builder(
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(
-                      'Tab 1 content $index',
+                Consumer<CategoryModel>(
+                  builder: (context, category, _) => ListView.builder(
+                    itemCount: category.latest.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(
+                        category.latest[index].newsTitle,
+                      ),
                     ),
                   ),
                 ),
-                ListView.builder(
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(
-                      'Tab 2 content $index',
+                Consumer<CategoryModel>(
+                  builder: (context, category, _) => ListView.builder(
+                    itemCount: category.trending.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(
+                        category.trending[index].newsTitle,
+                      ),
                     ),
                   ),
                 ),
-                ListView.builder(
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(
-                      'Tab 2 content $index',
+                Consumer<CategoryModel>(
+                  builder: (context, category, _) => ListView.builder(
+                    itemCount: category.news.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(
+                        category.news[index].newsTitle,
+                      ),
                     ),
                   ),
                 ),
