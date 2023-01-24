@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumilite/screens/landing.dart';
+import 'package:lumilite/utils/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,13 +10,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
       title: 'Lumi Lite',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LandingScreen(),
-    );
-  }
+      theme: AppTheme.lightMode(context),
+      home: const LandingScreen());
 }
