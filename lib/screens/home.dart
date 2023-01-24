@@ -24,12 +24,6 @@ class _HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
-  // void _nextPage(int delta) {
-  //   final int newIndex = _tabController.index + delta;
-  //   if (newIndex < 0 || newIndex >= _tabController.length) return;
-  //   _tabController.animateTo(newIndex);
-  // }
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
@@ -39,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen>
                 pinned: true,
                 snap: true,
                 floating: true,
-                expandedHeight: 100,
+                expandedHeight: 120,
                 backgroundColor: Colors.white,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
