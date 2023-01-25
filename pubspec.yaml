@@ -16,6 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   csv: ^5.0.1
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +27,8 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/data/
+    - assets/fonts/
 
   fonts:
     - family: Poppins

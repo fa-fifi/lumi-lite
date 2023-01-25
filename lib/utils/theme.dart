@@ -5,5 +5,7 @@ class AppTheme {
         brightness: Brightness.light,
         appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         primaryColor: const Color(0xFF3353DC),
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
       );
 }

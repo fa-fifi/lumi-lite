@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lumilite/models/category.dart';
 import 'package:lumilite/widgets/greeting.dart';
-import 'package:provider/provider.dart';
+import 'package:lumilite/widgets/news_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,6 +18,42 @@ class _HomeScreenState extends State<HomeScreen>
   int _currentIndex = 0;
   int _previousIndex = 0;
 
+  void swipeListener() {
+    if (!_tapIsBeingExecuted &&
+        !_swipeIsInProgress &&
+        (_tabController.offset >= 0.5 || _tabController.offset <= -0.5)) {
+      setState(() {
+        _swipeIsInProgress = true;
+        _previousIndex = _currentIndex;
+        _currentIndex = _tabController.offset > 0
+            ? _tabController.index + 1
+            : _tabController.index - 1;
+      });
+    } else {
+      if (!_tapIsBeingExecuted &&
+          _swipeIsInProgress &&
+          ((_tabController.offset < 0.5 && _tabController.offset > 0) ||
+              (_tabController.offset > -0.5 && _tabController.offset < 0))) {
+        setState(() {
+          _swipeIsInProgress = false;
+          _currentIndex = _previousIndex;
+        });
+      }
+    }
+  }
+
+  void tapListener() {
+    setState(() {
+      _swipeIsInProgress = false;
+      _currentIndex = _tabController.index;
+    });
+    if (_tapIsBeingExecuted == true) {
+      _tapIsBeingExecuted = false;
+    } else if (_tabController.indexIsChanging) {
+      _tapIsBeingExecuted = true;
+    }
+  }
+
   Widget buildTab({required int index, required String text}) => Container(
       height: 40,
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -32,40 +67,8 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    _tabController.animation?.addListener(() {
-      if (!_tapIsBeingExecuted &&
-          !_swipeIsInProgress &&
-          (_tabController.offset >= 0.5 || _tabController.offset <= -0.5)) {
-        setState(() {
-          _swipeIsInProgress = true;
-          _previousIndex = _currentIndex;
-          _currentIndex = _tabController.offset > 0
-              ? _tabController.index + 1
-              : _tabController.index - 1;
-        });
-      } else {
-        if (!_tapIsBeingExecuted &&
-            _swipeIsInProgress &&
-            ((_tabController.offset < 0.5 && _tabController.offset > 0) ||
-                (_tabController.offset > -0.5 && _tabController.offset < 0))) {
-          setState(() {
-            _swipeIsInProgress = false;
-            _currentIndex = _previousIndex;
-          });
-        }
-      }
-    });
-    _tabController.addListener(() {
-      setState(() {
-        _swipeIsInProgress = false;
-        _currentIndex = _tabController.index;
-      });
-      if (_tapIsBeingExecuted == true) {
-        _tapIsBeingExecuted = false;
-      } else if (_tabController.indexIsChanging) {
-        _tapIsBeingExecuted = true;
-      }
-    });
+    _tabController.animation?.addListener(swipeListener);
+    _tabController.addListener(tapListener);
   }
 
   @override
@@ -75,68 +78,39 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) => [
-              SliverAppBar(
-                pinned: true,
-                expandedHeight: 125,
-                flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: EdgeInsets.zero,
-                  expandedTitleScale: 1,
-                  background: const Greeting(),
-                  title: TabBar(
-                    controller: _tabController,
-                    indicatorColor: Colors.transparent,
-                    labelPadding: const EdgeInsets.only(left: 10, bottom: 5),
-                    isScrollable: true,
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.black,
-                    tabs: [
-                      buildTab(index: 0, text: 'Latest ⚡'),
-                      buildTab(index: 1, text: 'Trending 🔥'),
-                      buildTab(index: 2, text: 'News ☕'),
-                    ],
-                  ),
+  Widget build(BuildContext context) => SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              pinned: true,
+              expandedHeight: 125,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.zero,
+                expandedTitleScale: 1,
+                background: const Greeting(),
+                title: TabBar(
+                  controller: _tabController,
+                  indicatorColor: Colors.transparent,
+                  labelPadding: const EdgeInsets.only(left: 10, bottom: 5),
+                  isScrollable: true,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.black,
+                  tabs: [
+                    buildTab(index: 0, text: 'Latest ⚡'),
+                    buildTab(index: 1, text: 'Trending 🔥'),
+                    buildTab(index: 2, text: 'News ☕'),
+                  ],
                 ),
               ),
-            ],
-            body: TabBarView(
-              controller: _tabController,
-              children: [
-                Consumer<CategoryModel>(
-                  builder: (context, category, _) => ListView.builder(
-                    itemCount: category.latest.length,
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text(
-                        category.latest[index].newsTitle,
-                      ),
-                    ),
-                  ),
-                ),
-                Consumer<CategoryModel>(
-                  builder: (context, category, _) => ListView.builder(
-                    itemCount: category.trending.length,
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text(
-                        category.trending[index].newsTitle,
-                      ),
-                    ),
-                  ),
-                ),
-                Consumer<CategoryModel>(
-                  builder: (context, category, _) => ListView.builder(
-                    itemCount: category.news.length,
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text(
-                        category.news[index].newsTitle,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ),
+          ],
+          body: TabBarView(
+            controller: _tabController,
+            children: const [
+              NewsList(csv: 'assets/data/latest.csv'),
+              NewsList(csv: 'assets/data/trending.csv'),
+              NewsList(csv: 'assets/data/news.csv'),
+            ],
           ),
         ),
       );

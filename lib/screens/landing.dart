@@ -11,16 +11,17 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   int _currentPage = 0;
-  static const List<Widget> _screens = [HomeScreen(), SettingsScreen()];
+  static const List<Widget> _pages = [HomeScreen(), SettingsScreen()];
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: _screens.elementAt(_currentPage),
+        body: _pages.elementAt(_currentPage),
+        // Todo: Hide bottom nav bar during scroll up.
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentPage,
           onTap: (index) => setState(() => _currentPage = index),
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: 'Settings'),
           ],

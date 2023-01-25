@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumilite/models/category.dart';
-import 'package:lumilite/screens/home.dart';
+import 'package:lumilite/screens/landing.dart';
 import 'package:lumilite/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +19,6 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             title: 'Lumi Lite',
             theme: AppTheme.lightMode(context),
-            home: const HomeScreen()),
+            home: const LandingScreen()),
       );
 }
