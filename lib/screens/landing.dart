@@ -21,7 +21,8 @@ class _LandingScreenState extends State<LandingScreen> {
           currentIndex: _currentPage,
           onTap: (index) => setState(() => _currentPage = index),
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: 'Home'),
+            // Todo: Change icon.
+            BottomNavigationBarItem(icon: Icon(Icons.feed), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: 'Settings'),
           ],
