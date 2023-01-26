@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lumilite/models/activity.dart';
 import 'package:lumilite/models/news.dart';
 import 'package:lumilite/widgets/favicon.dart';
 import 'package:lumilite/widgets/snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
@@ -30,8 +32,23 @@ class _WebViewScreenState extends State<WebViewScreen> {
         onPageFinished: (url) {
           setState(() => loadingPercentage = 100);
           if (!mounted) return;
+          Provider.of<ActivityModel>(context, listen: false)
+              .addHistory(widget.news);
           ScaffoldMessenger.of(context).showSnackBar(
-              Snackbar.rounded('Ads from the publisher’s website'));
+              Snackbar.floating('Ads from the publisher’s website'));
+          if (Provider.of<ActivityModel>(context, listen: false)
+                  .history
+                  .length ==
+              5) {
+            ScaffoldMessenger.of(context).showSnackBar(Snackbar.floating(
+                'Congratulations, you have viewed 5 articles! 🎉'));
+          } else if (Provider.of<ActivityModel>(context, listen: false)
+                  .history
+                  .length ==
+              10) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                Snackbar.floating('Wow, you are an avid news reader! 🏆'));
+          }
         },
       ))
       ..loadRequest(Uri.parse(widget.news.link));
