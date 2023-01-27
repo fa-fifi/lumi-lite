@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lumilite/screens/landing.dart';
 import 'package:lumilite/widgets/greeting.dart';
 import 'package:lumilite/widgets/news_list.dart';
 
@@ -80,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) => SafeArea(
         child: NestedScrollView(
+          controller: LandingScreenState.controller,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverAppBar(
               pinned: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:lumilite/screens/home.dart';
 import 'package:lumilite/screens/settings.dart';
 
@@ -6,26 +7,52 @@ class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
 
   @override
-  State<LandingScreen> createState() => _LandingScreenState();
+  State<LandingScreen> createState() => LandingScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> {
+class LandingScreenState extends State<LandingScreen> {
+  static final ScrollController controller = ScrollController();
+  final ValueNotifier<bool> _visible = ValueNotifier(true);
+  final List<Widget> _pages = const [HomeScreen(), SettingsScreen()];
   int _currentPage = 0;
-  static const List<Widget> _pages = [HomeScreen(), SettingsScreen()];
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      switch (controller.position.userScrollDirection) {
+        case ScrollDirection.forward:
+          _visible.value = true;
+          break;
+        case ScrollDirection.reverse:
+          _visible.value = false;
+          break;
+        default:
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: _pages.elementAt(_currentPage),
-        // Todo: Hide bottom nav bar during scroll up.
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentPage,
-          onTap: (index) => setState(() => _currentPage = index),
-          items: const [
-            // Todo: Change icon.
-            BottomNavigationBarItem(icon: Icon(Icons.feed), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: 'Settings'),
-          ],
+        bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: _visible,
+          builder: (context, value, child) => AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              height: value ? kBottomNavigationBarHeight : 0.0,
+              child: child),
+          child: Wrap(children: [
+            BottomNavigationBar(
+                currentIndex: _currentPage,
+                selectedItemColor: Theme.of(context).primaryColor,
+                onTap: (index) => setState(() => _currentPage = index),
+                items: const [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.feed), label: 'Home'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.settings), label: 'Settings'),
+                ]),
+          ]),
         ),
       );
 }
