@@ -29,6 +29,9 @@ class _NewsListState extends State<NewsList> {
                   visible: index != 0,
                   child:
                       NewsTile(news: NewsModel.fromCsv(snapshot.data![index]))))
-          // Todo: Create loading screen.
-          : const CircularProgressIndicator());
+          : Center(
+              child: CircularProgressIndicator(
+              backgroundColor: Colors.black12,
+              color: Theme.of(context).primaryColor,
+            )));
 }
