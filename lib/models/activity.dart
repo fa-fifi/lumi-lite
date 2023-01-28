@@ -8,8 +8,11 @@ import 'package:lumilite/models/topic.dart';
 // Todo: Add shared pref.
 class ActivityModel extends ChangeNotifier {
   final List<NewsModel> _history = [];
+  int _duration = 0;
 
   UnmodifiableListView<NewsModel> get history => UnmodifiableListView(_history);
+
+  Duration get duration => Duration(seconds: _duration);
 
   NewsModel? get recentlyViewed => _history.isEmpty ? null : _history.last;
 
@@ -43,6 +46,11 @@ class ActivityModel extends ChangeNotifier {
 
   void addHistory(NewsModel news) {
     _history.add(news);
+    notifyListeners();
+  }
+
+  void addDuration(int seconds) {
+    _duration += seconds;
     notifyListeners();
   }
 }

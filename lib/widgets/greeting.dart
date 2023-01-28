@@ -11,8 +11,14 @@ class Greeting extends StatefulWidget {
 
 class _GreetingState extends State<Greeting> {
   late int hour = DateTime.now().hour;
-  late final Timer timer = Timer.periodic(const Duration(seconds: 1),
-      (timer) => setState(() => hour = DateTime.now().hour));
+  late Timer timer;
+
+  @override
+  void initState() {
+    timer = Timer.periodic(const Duration(seconds: 1),
+        (timer) => setState(() => hour = DateTime.now().hour));
+    super.initState();
+  }
 
   @override
   void dispose() {

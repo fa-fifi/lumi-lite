@@ -44,11 +44,15 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ...activity.topPublishers
                               .map((publisher) => Column(children: [
-                                    Favicon(url: publisher.icon, radius: 48),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Favicon(
+                                          url: publisher.icon, radius: 48),
+                                    ),
                                     const SizedBox(height: 10),
                                     Text(
                                         '${publisher.count} article${publisher.count > 1 ? 's' : ''}',
@@ -64,7 +68,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Chip(label: Text(activity.topCategory!.title)))),
-            buildSection(title: 'Total Reading Time'),
+            buildSection(
+                title: 'Total Reading Time',
+                child: Text(activity.duration.toString())),
           ],
         ),
       );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:lumilite/models/activity.dart';
 import 'package:lumilite/models/news.dart';
@@ -18,6 +20,7 @@ class WebViewScreen extends StatefulWidget {
 class _WebViewScreenState extends State<WebViewScreen> {
   late final WebViewController controller;
   var loadingPercentage = 0;
+  late Timer timer;
 
   @override
   void initState() {
@@ -31,9 +34,11 @@ class _WebViewScreenState extends State<WebViewScreen> {
         },
         onPageFinished: (url) {
           setState(() => loadingPercentage = 100);
-          if (!mounted) return;
+          timer = Timer.periodic(const Duration(seconds: 1),
+              (timer) => debugPrint(timer.tick.toString()));
           Provider.of<ActivityModel>(context, listen: false)
               .addHistory(widget.news);
+          if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
               Snackbar.floating('Ads from the publisher’s website'));
           if (Provider.of<ActivityModel>(context, listen: false)
@@ -56,8 +61,15 @@ class _WebViewScreenState extends State<WebViewScreen> {
   }
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () {
+          context.read<ActivityModel>().addDuration(timer.tick);
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           return Future.value(true);
         },
