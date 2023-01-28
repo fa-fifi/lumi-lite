@@ -40,7 +40,7 @@ class LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: _pages.elementAt(_currentPage),
-        bottomNavigationBar: ValueListenableBuilder(
+        bottomNavigationBar: ValueListenableBuilder<bool>(
           valueListenable: _visible,
           builder: (context, value, child) => AnimatedContainer(
               duration: const Duration(milliseconds: 500),

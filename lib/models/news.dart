@@ -1,3 +1,5 @@
+import 'package:lumilite/models/topic.dart';
+
 class NewsModel {
   final String newsTitle;
   final String publisherName;
@@ -5,14 +7,16 @@ class NewsModel {
   final String publisherIcon;
   final String updatedTime;
   final String link;
+  TopicModel topic;
 
-  const NewsModel(
+  NewsModel(
       {required this.newsTitle,
       required this.publisherName,
       required this.newsImage,
       required this.publisherIcon,
       required this.updatedTime,
-      required this.link});
+      required this.link,
+      this.topic = TopicModel.latest});
 
   factory NewsModel.fromCsv(List<dynamic> csv) => NewsModel(
       newsTitle: csv[0],

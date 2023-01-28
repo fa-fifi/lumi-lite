@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen>
           body: TabBarView(
             controller: _tabController,
             children: List.from(
-              widget.topics.map((topic) => NewsList(source: topic.source)),
+              widget.topics.map((topic) => NewsList(topic: topic)),
             ),
           ),
         ),

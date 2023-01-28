@@ -14,7 +14,7 @@ class NewsTile extends StatelessWidget {
             MaterialPageRoute(builder: (context) => WebViewScreen(news: news))),
         child: Card(
           elevation: 0,
-          margin: const EdgeInsets.symmetric(horizontal: 5),
+          margin: EdgeInsets.zero,
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Row(
@@ -37,7 +37,6 @@ class NewsTile extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(news.updatedTime,
                           style: Theme.of(context).textTheme.bodySmall),
-                      // Todo: Create hide news button.
                     ],
                   ),
                 ),

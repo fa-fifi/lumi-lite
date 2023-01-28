@@ -14,14 +14,8 @@ class SettingsModel extends ChangeNotifier {
   }
 
   bool updateTopic(TopicModel topic) {
-    if (_topics.contains(topic)) {
-      _topics.remove(topic);
-      notifyListeners();
-      return false;
-    } else {
-      _topics.add(topic);
-      notifyListeners();
-      return true;
-    }
+    _topics.contains(topic) ? _topics.remove(topic) : _topics.add(topic);
+    notifyListeners();
+    return _topics.contains(topic);
   }
 }
