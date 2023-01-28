@@ -16,9 +16,7 @@ class LandingScreenState extends State<LandingScreen> {
   static final ScrollController controller = ScrollController();
   final ValueNotifier<bool> _visible = ValueNotifier(true);
   late final List<Widget> _pages = [
-    HomeScreen(
-        topics: context
-            .select((SettingsModel settingsModel) => settingsModel.topics)),
+    HomeScreen(topics: context.watch<SettingsModel>().topics),
     const SettingsScreen()
   ];
   int _currentPage = 0;
