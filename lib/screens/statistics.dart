@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumilite/models/activity.dart';
+import 'package:lumilite/utils/extensions.dart';
 import 'package:lumilite/widgets/favicon.dart';
 import 'package:lumilite/widgets/news_tile.dart';
 import 'package:provider/provider.dart';
@@ -68,9 +69,17 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Chip(label: Text(activity.topCategory!.title)))),
-            buildSection(
-                title: 'Total Reading Time',
-                child: Text(activity.duration.toString())),
+            if (activity.duration.inSeconds != 0)
+              buildSection(
+                  title: 'Total Reading Time',
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(activity.duration.format(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(fontSize: 35)),
+                  )),
           ],
         ),
       );

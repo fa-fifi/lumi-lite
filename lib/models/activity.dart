@@ -5,7 +5,6 @@ import 'package:lumilite/models/news.dart';
 import 'package:lumilite/models/publisher.dart';
 import 'package:lumilite/models/topic.dart';
 
-// Todo: Add shared pref.
 class ActivityModel extends ChangeNotifier {
   final List<NewsModel> _history = [];
   int _duration = 0;
