@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
         appBar: AppBar(elevation: 0, title: const Text('Settings')),
         body: ListView(
           controller: LandingScreenState.controller,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(10),
           children: [
             buildListTile(context,
                 text: 'Topics  🗂️',

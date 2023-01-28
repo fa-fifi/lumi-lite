@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:lumilite/models/topic.dart';
 import 'package:lumilite/screens/landing.dart';
 import 'package:lumilite/widgets/greeting.dart';
 import 'package:lumilite/widgets/news_list.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.topics});
+
+  final List<TopicModel> topics;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -12,8 +15,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late final TabController _tabController =
-      TabController(initialIndex: _currentIndex, length: 3, vsync: this);
+  late final TabController _tabController = TabController(
+      initialIndex: _currentIndex, length: widget.topics.length, vsync: this);
   bool _swipeIsInProgress = false;
   bool _tapIsBeingExecuted = false;
   int _currentIndex = 0;
@@ -55,16 +58,6 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  Widget buildTab({required int index, required String text}) => Container(
-      height: 40,
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: ShapeDecoration(
-          color: _currentIndex == index
-              ? Theme.of(context).primaryColor
-              : Theme.of(context).primaryColor.withOpacity(0.2),
-          shape: const StadiumBorder()),
-      child: Tab(text: text));
-
   @override
   void initState() {
     super.initState();
@@ -97,22 +90,27 @@ class _HomeScreenState extends State<HomeScreen>
                   isScrollable: true,
                   labelColor: Colors.white,
                   unselectedLabelColor: Colors.black,
-                  tabs: [
-                    buildTab(index: 0, text: 'Latest ⚡'),
-                    buildTab(index: 1, text: 'Trending 🔥'),
-                    buildTab(index: 2, text: 'News ☕'),
-                  ],
+                  tabs: List.from(
+                    widget.topics.map((topic) => Container(
+                        height: 40,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        decoration: ShapeDecoration(
+                            color: _currentIndex == topic.index
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).primaryColor.withOpacity(
+                                    _currentIndex == topic.index ? 1 : 0.2),
+                            shape: const StadiumBorder()),
+                        child: Tab(text: topic.title))),
+                  ),
                 ),
               ),
             ),
           ],
           body: TabBarView(
             controller: _tabController,
-            children: const [
-              NewsList(csv: 'assets/data/latest.csv'),
-              NewsList(csv: 'assets/data/trending.csv'),
-              NewsList(csv: 'assets/data/news.csv'),
-            ],
+            children: List.from(
+              widget.topics.map((topic) => NewsList(source: topic.source)),
+            ),
           ),
         ),
       );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:lumilite/models/settings.dart';
 import 'package:lumilite/screens/home.dart';
 import 'package:lumilite/screens/settings.dart';
+import 'package:provider/provider.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -13,7 +15,12 @@ class LandingScreen extends StatefulWidget {
 class LandingScreenState extends State<LandingScreen> {
   static final ScrollController controller = ScrollController();
   final ValueNotifier<bool> _visible = ValueNotifier(true);
-  final List<Widget> _pages = const [HomeScreen(), SettingsScreen()];
+  late final List<Widget> _pages = [
+    HomeScreen(
+        topics: context
+            .select((SettingsModel settingsModel) => settingsModel.topics)),
+    const SettingsScreen()
+  ];
   int _currentPage = 0;
 
   @override

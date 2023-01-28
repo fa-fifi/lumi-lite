@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumilite/models/activity.dart';
+import 'package:lumilite/models/settings.dart';
 import 'package:lumilite/screens/landing.dart';
 import 'package:lumilite/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => ActivityModel()),
+          ChangeNotifierProvider(create: (context) => SettingsModel()),
         ],
         child: MaterialApp(
             title: 'Lumi Lite',

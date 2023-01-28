@@ -4,9 +4,9 @@ import 'package:lumilite/models/news.dart';
 import 'package:lumilite/widgets/news_tile.dart';
 
 class NewsList extends StatefulWidget {
-  const NewsList({super.key, required this.csv});
+  const NewsList({super.key, required this.source});
 
-  final String csv;
+  final String source;
 
   @override
   State<NewsList> createState() => _NewsListState();
@@ -14,7 +14,7 @@ class NewsList extends StatefulWidget {
 
 class _NewsListState extends State<NewsList> {
   Future<List<List<dynamic>>> loadCsv() async {
-    var result = await DefaultAssetBundle.of(context).loadString(widget.csv);
+    var result = await DefaultAssetBundle.of(context).loadString(widget.source);
     return const CsvToListConverter().convert(result, eol: "\n");
   }
 

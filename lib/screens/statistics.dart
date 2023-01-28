@@ -16,7 +16,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           title: const Text('Statistics'),
         ),
         body: ListView(
-          children: [],
-        ),
+            // children: [],
+            ),
       );
 }

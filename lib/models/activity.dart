@@ -11,7 +11,6 @@ class ActivityModel extends ChangeNotifier {
 
   void addHistory(NewsModel news) {
     _history.add(news);
-    debugPrint(_history.length.toString());
     notifyListeners();
   }
 }
