@@ -13,13 +13,15 @@ class SettingsModel extends ChangeNotifier {
     return _topics;
   }
 
-  void updateTopic(TopicModel topic) {
+  bool updateTopic(TopicModel topic) {
     if (_topics.contains(topic)) {
       _topics.remove(topic);
+      notifyListeners();
+      return false;
     } else {
       _topics.add(topic);
+      notifyListeners();
+      return true;
     }
-    debugPrint(_topics.length.toString());
-    notifyListeners();
   }
 }

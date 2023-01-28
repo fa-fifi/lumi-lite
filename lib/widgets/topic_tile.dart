@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lumilite/models/settings.dart';
 import 'package:lumilite/models/topic.dart';
+import 'package:lumilite/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 
 class TopicTile extends StatefulWidget {
@@ -59,8 +60,15 @@ class _TopicTileState extends State<TopicTile> with TickerProviderStateMixin {
                   .withOpacity(widget.isFollowing ? 0.7 : 0.1),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15))),
-          onPressed: () =>
-              context.read<SettingsModel>().updateTopic(widget.topic),
+          onPressed: () {
+            final bool isFollowing =
+                context.read<SettingsModel>().updateTopic(widget.topic);
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(Snackbar.floating(isFollowing
+                  ? 'You are following ${widget.topic.title}'
+                  : 'You have unfollowed ${widget.topic.title}'));
+          },
           child: Stack(
             children: [
               Align(
@@ -71,14 +79,14 @@ class _TopicTileState extends State<TopicTile> with TickerProviderStateMixin {
                           : Theme.of(context).textTheme.bodyMedium)),
               Align(
                 alignment: Alignment.topRight,
-                child: Checkbox(
-                    shape: const CircleBorder(),
-                    fillColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => Colors.transparent),
-                    value: widget.isFollowing,
-                    onChanged: (_) => context
-                        .read<SettingsModel>()
-                        .updateTopic(widget.topic)),
+                child: IgnorePointer(
+                  child: Checkbox(
+                      shape: const CircleBorder(),
+                      fillColor: MaterialStateProperty.resolveWith<Color>(
+                          (states) => Colors.transparent),
+                      value: widget.isFollowing,
+                      onChanged: null),
+                ),
               ),
             ],
           ),
