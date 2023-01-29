@@ -19,21 +19,21 @@ Since this app is basically a lite version of Lumi App, so I tried to use less d
 
 ### Home Page
 
-![home page 1](assets/screenshots/home_page_1.jpg)
-![home page 2](assets/screenshots/home_page_2.jpg)
+<img src="assets/screenshots/home_page_1.jpg" width="300">
+<img src="assets/screenshots/home_page_2.jpg" width="300">
 
 Some desc
 
 ### News Page
 
-![news page 1](assets/screenshots/news_page_1.jpg)
-![news page 2](assets/screenshots/news_page_2.jpg)
+<img src="assets/screenshots/news_page_1.jpg" width="300">
+<img src="assets/screenshots/news_page_2.jpg" width="300">
 
 Some desc
 
 ### Settings Page
 
-![settings page 1](assets/screenshots/settings_page_1.jpg)
-![settings page 2](assets/screenshots/settings_page_2.jpg)
+<img src="assets/screenshots/settings_page_1.jpg" width="300">
+<img src="assets/screenshots/settings_page_2.jpg" width="300">
 
 Some desc
