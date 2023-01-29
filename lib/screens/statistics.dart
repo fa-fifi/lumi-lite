@@ -65,7 +65,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   )),
             if (activity.topCategory != null)
               buildSection(
-                  title: 'Most Read Categories',
+                  title: 'Most Read Category',
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Chip(label: Text(activity.topCategory!.title)))),
