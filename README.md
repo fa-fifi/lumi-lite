@@ -1,6 +1,6 @@
 # Lumi Lite
 
-![app icon](assets\icon.png)
+![app icon](assets/icon.png)
 
 **_News from your favourite sites,all in one app. It's the only one news app you need._**
 
