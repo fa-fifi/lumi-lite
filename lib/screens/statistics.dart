@@ -80,6 +80,15 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                             .displaySmall!
                             .copyWith(fontSize: 35)),
                   )),
+            if (activity.recentlyViewed == null &&
+                activity.topPublishers.isEmpty &&
+                activity.topCategory == null &&
+                activity.screentime.inSeconds == 0)
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                    'Sorry, there are no available statistics available at the moment.'),
+              ),
           ],
         ),
       );
