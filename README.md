@@ -1,6 +1,6 @@
 # Lumi Lite
 
-![app icon](assets/icon.png)
+<img src="assets/icon.png" width="250">
 
 **_News from your favourite sites,all in one app. It's the only one news app you need._**
 
@@ -19,21 +19,21 @@ Since this app is basically a lite version of Lumi App, so I tried to use less d
 
 ### Home Page
 
-<img src="assets/screenshots/home_page_1.jpg" width="300">
-<img src="assets/screenshots/home_page_2.jpg" width="300">
+<img src="assets/screenshots/home_page_1.jpg" width="250">
+<img src="assets/screenshots/home_page_2.jpg" width="250">
 
 Some desc
 
 ### News Page
 
-<img src="assets/screenshots/news_page_1.jpg" width="300">
-<img src="assets/screenshots/news_page_2.jpg" width="300">
+<img src="assets/screenshots/news_page_1.jpg" width="250">
+<img src="assets/screenshots/news_page_2.jpg" width="250">
 
 Some desc
 
 ### Settings Page
 
-<img src="assets/screenshots/settings_page_1.jpg" width="300">
-<img src="assets/screenshots/settings_page_2.jpg" width="300">
+<img src="assets/screenshots/settings_page_1.jpg" width="250">
+<img src="assets/screenshots/settings_page_2.jpg" width="250">
 
 Some desc
