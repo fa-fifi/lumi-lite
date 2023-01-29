@@ -61,14 +61,9 @@ class _WebViewScreenState extends State<WebViewScreen> {
   }
 
   @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () {
+          timer.cancel();
           context.read<ActivityProvider>().addScreentime(timer.tick);
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           return Future.value(true);
