@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lumilite/models/settings.dart';
+import 'package:lumilite/providers/settings.dart';
 import 'package:lumilite/models/topic.dart';
 import 'package:lumilite/widgets/topic_tile.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +31,7 @@ class TopicsScreen extends StatelessWidget {
                   .where((topic) => topic != TopicModel.latest)
                   .elementAt(index);
               final bool isFollowing =
-                  context.watch<SettingsModel>().topics.contains(topic);
+                  context.watch<SettingsProvider>().topics.contains(topic);
 
               return TopicTile(topic: topic, isFollowing: isFollowing);
             },

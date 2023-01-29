@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lumilite/models/topic.dart';
 
-class SettingsModel extends ChangeNotifier {
+class SettingsProvider extends ChangeNotifier {
   final List<TopicModel> _topics = [
     TopicModel.latest,
     TopicModel.trending,

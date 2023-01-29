@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:lumilite/models/settings.dart';
+import 'package:lumilite/providers/settings.dart';
 import 'package:lumilite/screens/home.dart';
 import 'package:lumilite/screens/settings.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class LandingScreenState extends State<LandingScreen> {
   static final ScrollController controller = ScrollController();
   final ValueNotifier<bool> _visible = ValueNotifier(true);
   late final List<Widget> _pages = [
-    HomeScreen(topics: context.watch<SettingsModel>().topics),
+    HomeScreen(topics: context.watch<SettingsProvider>().topics),
     const SettingsScreen()
   ];
   int _currentPage = 0;
@@ -26,10 +26,14 @@ class LandingScreenState extends State<LandingScreen> {
     controller.addListener(() {
       switch (controller.position.userScrollDirection) {
         case ScrollDirection.forward:
-          _visible.value = true;
+          setState(() {
+            _visible.value = true;
+          });
           break;
         case ScrollDirection.reverse:
-          _visible.value = false;
+          setState(() {
+            _visible.value = false;
+          });
           break;
         default:
       }

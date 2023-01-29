@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lumilite/models/activity.dart';
+import 'package:lumilite/providers/activity.dart';
 import 'package:lumilite/models/news.dart';
 import 'package:lumilite/widgets/favicon.dart';
 import 'package:lumilite/widgets/snackbar.dart';
@@ -36,18 +36,18 @@ class _WebViewScreenState extends State<WebViewScreen> {
           setState(() => loadingPercentage = 100);
           timer = Timer.periodic(const Duration(seconds: 1),
               (timer) => debugPrint(timer.tick.toString()));
-          Provider.of<ActivityModel>(context, listen: false)
+          Provider.of<ActivityProvider>(context, listen: false)
               .addHistory(widget.news);
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
               Snackbar.floating('Ads from the publisher’s website'));
-          if (Provider.of<ActivityModel>(context, listen: false)
+          if (Provider.of<ActivityProvider>(context, listen: false)
                   .history
                   .length ==
               5) {
             ScaffoldMessenger.of(context).showSnackBar(Snackbar.floating(
                 'Congratulations, you have viewed 5 articles! 🎉'));
-          } else if (Provider.of<ActivityModel>(context, listen: false)
+          } else if (Provider.of<ActivityProvider>(context, listen: false)
                   .history
                   .length ==
               10) {
@@ -69,7 +69,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () {
-          context.read<ActivityModel>().addDuration(timer.tick);
+          context.read<ActivityProvider>().addScreentime(timer.tick);
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           return Future.value(true);
         },

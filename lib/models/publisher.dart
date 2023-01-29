@@ -3,5 +3,9 @@ class PublisherModel {
   final String icon;
   int count;
 
-  PublisherModel({required this.name, required this.icon, required this.count});
+  PublisherModel({
+    required this.name,
+    required this.icon,
+    this.count = 0,
+  });
 }

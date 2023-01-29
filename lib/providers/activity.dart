@@ -5,13 +5,13 @@ import 'package:lumilite/models/news.dart';
 import 'package:lumilite/models/publisher.dart';
 import 'package:lumilite/models/topic.dart';
 
-class ActivityModel extends ChangeNotifier {
+class ActivityProvider extends ChangeNotifier {
   final List<NewsModel> _history = [];
-  int _duration = 0;
+  int _screentime = 0;
 
   UnmodifiableListView<NewsModel> get history => UnmodifiableListView(_history);
 
-  Duration get duration => Duration(seconds: _duration);
+  Duration get screentime => Duration(seconds: _screentime);
 
   NewsModel? get recentlyViewed => _history.isEmpty ? null : _history.last;
 
@@ -32,15 +32,15 @@ class ActivityModel extends ChangeNotifier {
   }
 
   TopicModel? get topCategory {
-    final folded = _history.fold<Map<TopicModel, int>>({}, (map, news) {
+    final Map<TopicModel, int> result = _history.fold({}, (map, news) {
       map[news.topic] = (map[news.topic] ?? 0) + 1;
       return map;
     });
 
-    final sortedKeys = folded.keys.toList()
-      ..sort((b, a) => folded[a]!.compareTo(folded[b]!));
+    final List<TopicModel> sortedResult = result.keys.toList()
+      ..sort((b, a) => result[a]!.compareTo(result[b]!));
 
-    return folded.isEmpty ? null : sortedKeys.first;
+    return result.isEmpty ? null : sortedResult.first;
   }
 
   void addHistory(NewsModel news) {
@@ -48,8 +48,8 @@ class ActivityModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addDuration(int seconds) {
-    _duration += seconds;
+  void addScreentime(int seconds) {
+    _screentime += seconds;
     notifyListeners();
   }
 }

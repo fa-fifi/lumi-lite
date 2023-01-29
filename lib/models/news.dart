@@ -9,14 +9,15 @@ class NewsModel {
   final String link;
   TopicModel topic;
 
-  NewsModel(
-      {required this.newsTitle,
-      required this.publisherName,
-      required this.newsImage,
-      required this.publisherIcon,
-      required this.updatedTime,
-      required this.link,
-      this.topic = TopicModel.latest});
+  NewsModel({
+    required this.newsTitle,
+    required this.publisherName,
+    required this.newsImage,
+    required this.publisherIcon,
+    required this.updatedTime,
+    required this.link,
+    this.topic = TopicModel.latest,
+  });
 
   factory NewsModel.fromCsv(List<dynamic> csv) => NewsModel(
       newsTitle: csv[0],

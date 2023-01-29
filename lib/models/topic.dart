@@ -7,5 +7,5 @@ enum TopicModel {
   final String title, source;
 
   @override
-  String toString() => 'StatusCode($title)';
+  String toString() => 'TopicModel($title, $source)';
 }

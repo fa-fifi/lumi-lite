@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lumilite/models/settings.dart';
+import 'package:lumilite/providers/settings.dart';
 import 'package:lumilite/models/topic.dart';
 import 'package:lumilite/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +62,7 @@ class _TopicTileState extends State<TopicTile> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(15))),
           onPressed: () {
             final bool isFollowing =
-                context.read<SettingsModel>().updateTopic(widget.topic);
+                context.read<SettingsProvider>().updateTopic(widget.topic);
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(Snackbar.floating(isFollowing

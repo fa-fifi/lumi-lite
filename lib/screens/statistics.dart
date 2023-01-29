@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lumilite/models/activity.dart';
+import 'package:lumilite/providers/activity.dart';
 import 'package:lumilite/utils/extensions.dart';
 import 'package:lumilite/widgets/favicon.dart';
 import 'package:lumilite/widgets/news_tile.dart';
@@ -13,7 +13,7 @@ class StatisticsScreen extends StatefulWidget {
 }
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
-  late final ActivityModel activity = context.read<ActivityModel>();
+  late final ActivityProvider activity = context.read<ActivityProvider>();
 
   Widget buildSection({required String title, Widget? child}) => Card(
         elevation: 0,
@@ -69,12 +69,12 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Chip(label: Text(activity.topCategory!.title)))),
-            if (activity.duration.inSeconds != 0)
+            if (activity.screentime.inSeconds != 0)
               buildSection(
                   title: 'Total Reading Time',
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Text(activity.duration.format(),
+                    child: Text(activity.screentime.format(),
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall!
