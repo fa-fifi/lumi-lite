@@ -26,14 +26,10 @@ class LandingScreenState extends State<LandingScreen> {
     controller.addListener(() {
       switch (controller.position.userScrollDirection) {
         case ScrollDirection.forward:
-          setState(() {
-            _visible.value = true;
-          });
+          _visible.value = true;
           break;
         case ScrollDirection.reverse:
-          setState(() {
-            _visible.value = false;
-          });
+          _visible.value = false;
           break;
         default:
       }

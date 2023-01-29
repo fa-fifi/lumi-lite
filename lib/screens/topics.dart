@@ -11,6 +11,7 @@ class TopicsScreen extends StatelessWidget {
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).clearSnackBars();
           return Future.value(true);
         },
         child: Scaffold(

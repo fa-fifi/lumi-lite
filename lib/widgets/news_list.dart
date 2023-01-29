@@ -1,7 +1,7 @@
-import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:lumilite/models/news.dart';
 import 'package:lumilite/models/topic.dart';
+import 'package:lumilite/services/csv.dart';
 import 'package:lumilite/widgets/news_tile.dart';
 
 class NewsList extends StatefulWidget {
@@ -14,15 +14,9 @@ class NewsList extends StatefulWidget {
 }
 
 class _NewsListState extends State<NewsList> {
-  Future<List<List<dynamic>>> loadCsv() async {
-    var result =
-        await DefaultAssetBundle.of(context).loadString(widget.topic.source);
-    return const CsvToListConverter().convert(result, eol: "\n");
-  }
-
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: loadCsv(),
+      future: CsvService.loadCsv(context, source: widget.topic.source),
       builder: (context, snapshot) => snapshot.hasData
           ? ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 5),
