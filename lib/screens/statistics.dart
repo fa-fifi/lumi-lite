@@ -87,7 +87,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               const Padding(
                 padding: EdgeInsets.all(10),
                 child: Text(
-                    'Sorry, there are no available statistics available at the moment.'),
+                    'Sorry, there are no statistics available at the moment.'),
               ),
           ],
         ),
